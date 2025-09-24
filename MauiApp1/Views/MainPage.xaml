@@ -2,70 +2,74 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp1.Views.MainPage"
-             xmlns:viewmodel="clr-namespace:MauiApp1.ViewModel"
              xmlns:models="clr-namespace:MauiApp1.Models"
-             x:DataType="viewmodel:MainViewModel">
+             xmlns:viewModels="clr-namespace:MauiApp1.ViewModels"
+             x:DataType="viewModels:MainViewModel">
 
-    <Grid RowDefinitions="100, Auto, *"
-          ColumnDefinitions=".75*, .25*"
-          Padding="10"
-          RowSpacing="10"
-          ColumnSpacing="10">
-        <Image Grid.ColumnSpan="2"
-               Source="dotnet_bot.png"
-               BackgroundColor="Aqua"/>
-        <Entry Placeholder="Enter TaskModel"
-               Text="{Binding Text}"
-               Grid.Row="1"/>
-        <Button Command="{Binding AddCommand}" Text="Add" Grid.Row="1" Grid.Column="1" />
+    <VerticalStackLayout>
+        <!-- <Button Text="Open TaskPopup" Command="{Binding DisplayPopupCommand}"/>  -->
+        <Grid RowDefinitions="100, Auto, *"
+              ColumnDefinitions=".75*, .25*"
+              Padding="10"
+              RowSpacing="10"
+              ColumnSpacing="10">
+            <Image Grid.ColumnSpan="2"
+                   Source="dotnet_bot.png"
+                   BackgroundColor="Aqua"/>
             
+            <Entry Placeholder="Enter TaskModel"
+                   Text="{Binding TaskName}"
+                   Grid.Row="1"/>
+            <Button Command="{Binding AddCommand}" Text="Add" Grid.Row="1" Grid.Column="1" />
+                
 
-        <CollectionView Grid.Row="2" Grid.ColumnSpan="2"
-                        ItemsSource="{Binding Items}"
-                        SelectionMode="None">
-                        
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="{x:Type models:TaskModel}">
-                    <SwipeView>
-                        <SwipeView.RightItems>
-                            <SwipeItems> 
-                                <SwipeItem 
-                                    Command="{
-                                        Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}},
-                                        Path=DeleteCommand
-                                    }"
-                                    CommandParameter="{Binding .}"
-                                    Text="Delete"
-                                    BackgroundColor="Crimson">
-                                </SwipeItem>
-                            </SwipeItems>
-                        </SwipeView.RightItems>
-                        <Grid Padding="0,5">
-                            <Border Padding="10, 5" BackgroundColor="Chocolate">
-                                <Border.GestureRecognizers>
-                                    <TapGestureRecognizer
+            <CollectionView Grid.Row="2" Grid.ColumnSpan="2"
+                            ItemsSource="{Binding Items}"
+                            SelectionMode="None">
+                            
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type models:TaskModel}">
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems> 
+                                    <SwipeItem 
                                         Command="{
-                                            Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}},
-                                            Path=TapCommand
+                                            Binding Source={RelativeSource AncestorType={x:Type viewModels:MainViewModel}},
+                                            Path=DeleteCommand
                                         }"
                                         CommandParameter="{Binding .}"
-                                    />
-                                </Border.GestureRecognizers>
-                                <FlexLayout Direction="Row"
-                                            JustifyContent="SpaceBetween"
-                                            AlignItems="Center"
-                                            Padding="12">
-                                    <Label Text="{Binding .Name}" VerticalTextAlignment="Center"/>
-                                    <Image Source="beer.png" WidthRequest="24" HeightRequest="24" Aspect="AspectFit"/>
-                                </FlexLayout>
-                            </Border>
-                        </Grid>
-                    </SwipeView>
-                    
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                                        Text="Delete"
+                                        BackgroundColor="Crimson">
+                                    </SwipeItem>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <Grid Padding="0,5">
+                                <Border Padding="10, 5" BackgroundColor="Chocolate">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{
+                                                Binding Source={RelativeSource AncestorType={x:Type viewModels:MainViewModel}},
+                                                Path=DisplayPopupCommand
+                                            }"
+                                            CommandParameter="{Binding .}"
+                                        />
+                                    </Border.GestureRecognizers>
+                                    <FlexLayout Direction="Row"
+                                                JustifyContent="SpaceBetween"
+                                                AlignItems="Center"
+                                                Padding="12">
+                                        <Label Text="{Binding .Name}" VerticalTextAlignment="Center"/>
+                                        <Image Source="beer.png" WidthRequest="24" HeightRequest="24" Aspect="AspectFit"/>
+                                    </FlexLayout>
+                                </Border>
+                            </Grid>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
             
-    </Grid>
+        </Grid>
+    </VerticalStackLayout>
+   
 
 </ContentPage>
