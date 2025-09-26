@@ -1,8 +1,8 @@
-namespace MauiApp1.Model;
+namespace MauiApp1.Models;
 
 public enum Importance
 {
-    Low,
-    Average,
-    High
+	Low,
+	Average,
+	High,
 }

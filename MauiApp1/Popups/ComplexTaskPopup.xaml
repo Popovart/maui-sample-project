@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ContentView
+<toolkit:Popup
 	xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-	x:Class="MauiApp1.Popups.TaskPopup"
-	xmlns:viewModels="clr-namespace:MauiApp1.ViewModels"
+	xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
 	xmlns:controls="clr-namespace:MauiApp1.Controls"
+	xmlns:viewModels="clr-namespace:MauiApp1.ViewModels"
 	x:DataType="viewModels:TaskPopupViewModel"
-	HorizontalOptions="Fill"
-	VerticalOptions="Center"
+	x:Class="MauiApp1.Popups.ComplexTaskPopup"
 >
-	<VerticalStackLayout HorizontalOptions="Fill">
+	<VerticalStackLayout
+		Style="{StaticResource TaskPopupContent}"
+		WidthRequest="290"
+		HorizontalOptions="Fill"
+	>
 		<Label
 			HorizontalOptions="Fill"
 			Text="Edit task"
 			FontAttributes="Bold"
 			FontSize="18"
-			TextColor="Black"
+			Style="{StaticResource TaskPopupLabel}"
 		/>
 		<Grid
 			HorizontalOptions="Fill"
@@ -23,55 +26,64 @@
 			RowDefinitions="Auto,Auto,Auto"
 			ColumnSpacing="8"
 			RowSpacing="8"
+			Padding="0, 0, 0, 15"
 		>
 			<Label
-				TextColor="Black"
 				Grid.Row="0"
 				Grid.Column="0"
 				Text="Name"
 				VerticalTextAlignment="Center"
+				Style="{StaticResource TaskPopupLabel}"
 			/>
-			<Entry
-				TextColor="Black"
+			<controls:CustomEntry
 				Grid.Row="0"
 				Grid.Column="1"
 				Text="{Binding NameInput}"
 				Placeholder="Enter name"
+				Style="{StaticResource TaskPopupEntry}"
 			/>
 			<Label
-				TextColor="Black"
 				Grid.Row="1"
 				Grid.Column="0"
 				Text="Description"
 				VerticalTextAlignment="Center"
+				Style="{StaticResource TaskPopupLabel}"
 			/>
-			<Editor
-				TextColor="Black"
+			<controls:CustomEntry
 				Grid.Row="1"
 				Grid.Column="1"
 				Text="{Binding DescriptionInput}"
+				Style="{StaticResource TaskPopupEntry}"
 			/>
 			<Label
-				TextColor="Black"
 				Grid.Row="2"
 				Grid.Column="0"
 				Text="Due date"
 				VerticalTextAlignment="Center"
+				Style="{StaticResource TaskPopupLabel}"
 			/>
 			<!-- <Entry TextColor="Black" Grid.Row="2" Grid.Column="1" -->
 			<!--        Text="{Binding DueDateInput}" -->
 			<!--        Placeholder="YYYY-MM-DD HH:mm" /> -->
 			<controls:CustomEntry
-				TextColor="Black"
 				Grid.Row="2"
 				Grid.Column="1"
 				Text="{Binding DueDateInput}"
 				Placeholder="YYYY-MM-DD HH:mm"
+				Style="{StaticResource TaskPopupEntry}"
 			/>
 		</Grid>
 		<HorizontalStackLayout Spacing="12" HorizontalOptions="End">
-			<Button Text="Cancel" Command="{Binding CancelCommand}" />
-			<Button Text="Save" Command="{Binding SaveCommand}" />
+			<Button
+				Style="{StaticResource PopupButton}"
+				Text="Cancel"
+				Command="{Binding CancelCommand}"
+			/>
+			<Button
+				Style="{StaticResource PopupButton}"
+				Text="Save"
+				Command="{Binding SaveCommand}"
+			/>
 		</HorizontalStackLayout>
 	</VerticalStackLayout>
-</ContentView>
+</toolkit:Popup>

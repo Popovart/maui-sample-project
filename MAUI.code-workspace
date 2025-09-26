@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "../eShop"
+		},
+		{
+			"path": "../MauiSqlite"
 		}
 	],
 	"settings": {}

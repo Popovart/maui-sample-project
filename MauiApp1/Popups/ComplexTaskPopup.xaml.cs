@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CommunityToolkit.Maui.Views;
 using MauiApp1.ViewModels;
-using Microsoft.Maui.Controls;
 
-namespace MauiApp1.Views;
+namespace MauiApp1.Popups;
 
-public partial class DetailPage : ContentPage
+public partial class ComplexTaskPopup : Popup
 {
-	public DetailPage(DetailViewModel vm)
+	public ComplexTaskPopup(TaskPopupViewModel vm)
 	{
 		InitializeComponent();
 		BindingContext = vm;

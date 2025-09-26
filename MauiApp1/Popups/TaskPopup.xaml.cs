@@ -9,9 +9,9 @@ namespace MauiApp1.Popups;
 
 public partial class TaskPopup : ContentView
 {
-    public TaskPopup(TaskPopupViewModel vm)
-    {
-        InitializeComponent();
-        BindingContext = vm;
-    }
+	public TaskPopup(TaskPopupViewModel vm)
+	{
+		InitializeComponent();
+		BindingContext = vm;
+	}
 }
