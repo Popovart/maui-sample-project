@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "../MauiSqlite"
+		},
+		{
+			"path": "../EF-Migrations-CheatSheet"
 		}
 	],
 	"settings": {}

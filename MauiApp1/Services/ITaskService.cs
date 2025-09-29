@@ -12,5 +12,5 @@ public interface ITaskService
 
 	Task<TaskModel?> UpdateTaskAsync(TaskModel task);
 
-	Task<IEnumerable<TaskModel>> GetTasksAsync();
+	Task<List<TaskModel>> GetTasksAsync();
 }

@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-using MauiApp1.Data.Local;
+using MauiAPP1.Data.Local;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;

@@ -1,4 +1,4 @@
-using MauiApp1.Data.Entities;
+using MauiAPP1.Data.Entities;
 using MauiApp1.Models;
 
 namespace MauiApp1.Mapping;

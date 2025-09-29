@@ -1,11 +1,13 @@
 ﻿using Android.Renderscripts;
 using CommunityToolkit.Maui;
-using MauiApp1.Data.Local;
+using MauiAPP1.Data.Local;
 using MauiApp1.Popups;
 using MauiApp1.Providers;
 using MauiApp1.Services;
 using MauiApp1.ViewModels;
 using MauiApp1.Views;
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Handlers;
@@ -51,7 +53,28 @@ public static class MauiProgram
 		builder.Services.AddTransient<DetailPage>();
 		builder.Services.AddTransient<DetailViewModel>();
 
-		builder.Services.AddDbContext<LocalDbContext>();
+		builder.Services.AddDbContext<LocalDbContext>(
+			options =>
+			{
+#if ANDROID
+				var dbPath = Android.App.Application.Context.GetDatabasePath("LocalDb.db")?.Path ?? Path.Combine(FileSystem.AppDataDirectory, "LocalDb.db");
+#else 
+				var dbPath = Path.Combine(FileSystem.AppDataDirectory, "LocalDb.db");
+#endif				
+				Directory.CreateDirectory(Path.GetDirectoryName(dbPath) ?? throw new InvalidOperationException("No directory in path"));
+				options.UseSqlite($"Data Source={dbPath}");
+				
+				// For more configurations:
+				// var cs = new SqliteConnectionStringBuilder
+				// {
+				//     DataSource = dbPath,
+				//     Mode = SqliteOpenMode.ReadWriteCreate
+				// }.ToString();
+				// options.UseSqlite(cs);
+			}
+		);
+
+		
 
 		// builder.Services.AddTransientPopup<TaskPopup, TaskPopupViewModel>();
 		builder.Services.AddTransientPopup<
@@ -63,19 +86,17 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
-
-		return builder.Build();
+		
+		var app = builder.Build();
+		
+		Task.Run(async () =>
+		{
+			using var scope = app.Services.CreateScope();
+			var db = scope.ServiceProvider.GetRequiredService<LocalDbContext>();
+			await db.Database.MigrateAsync();
+		});
+		
+		
+		return app;
 	}
 }
-
-// .ConfigureMauiHandlers(h =>
-// {
-//     EntryHandler.Mapper.AppendToMapping("NoUnderline", (handler, view) =>
-//     {
-// #if ANDROID
-//         var native = handler.PlatformView;
-//         native.Background = null;
-//         native.SetPadding(0, native.PaddingTop, 0, native.PaddingBottom);
-// #endif
-//     });
-// })

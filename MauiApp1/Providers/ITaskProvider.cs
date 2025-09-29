@@ -1,4 +1,4 @@
-using MauiApp1.Data.Entities;
+using MauiAPP1.Data.Entities;
 using MauiApp1.Models;
 
 namespace MauiApp1.Providers;
@@ -13,5 +13,5 @@ public interface ITaskProvider
 
 	Task<TaskEntity?> UpdateTaskAsync(TaskEntity task);
 
-	Task<IEnumerable<TaskEntity>> GetTasksAsync();
+	Task<List<TaskEntity>> GetTasksAsync();
 }

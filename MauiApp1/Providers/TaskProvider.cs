@@ -1,5 +1,5 @@
-using MauiApp1.Data.Entities;
-using MauiApp1.Data.Local;
+using MauiAPP1.Data.Entities;
+using MauiAPP1.Data.Local;
 using MauiApp1.Models;
 using MauiApp1.Utils;
 using Microsoft.EntityFrameworkCore;
@@ -59,7 +59,7 @@ public class TaskProvider(LocalDbContext localDbContext)
 		return existing;
 	}
 
-	public async Task<IEnumerable<TaskEntity>> GetTasksAsync()
+	public async Task<List<TaskEntity>> GetTasksAsync()
 	{
 		return await localDbContext.Tasks.ToListAsync();
 	}

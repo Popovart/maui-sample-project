@@ -1,4 +1,3 @@
-using MauiApp1.Data.Entities;
 using MauiApp1.Models;
 using MauiApp1.Providers;
 using MauiApp1.Mapping;
@@ -35,9 +34,9 @@ public class TaskService(ITaskProvider provider)
 		return updated?.ToModel();
 	}
 
-	public async Task<IEnumerable<TaskModel>> GetTasksAsync()
+	public async Task<List<TaskModel>> GetTasksAsync()
 	{
 		var state = await provider.GetTasksAsync();
-		return state.Select(it => it.ToModel());
+		return state.Select(it => it.ToModel()).ToList();
 	}
 }

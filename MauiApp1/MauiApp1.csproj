@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<!--        <TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>-->
-		<!--        <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>-->
+<!--		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>-->
 		<TargetFramework>net9.0-android</TargetFramework>
 		<!--        <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>-->
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
@@ -94,18 +94,23 @@
 			Include="Microsoft.EntityFrameworkCore"
 			Version="9.0.9"
 		/>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.9">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference
 			Include="Microsoft.EntityFrameworkCore.Sqlite"
 			Version="9.0.9"
 		/>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.9">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference
 			Include="Microsoft.Maui.Controls"
 			Version="9.0.110"
 		/>
-		<PackageReference
-			Include="Microsoft.Extensions.Logging.Debug"
-			Version="9.0.5"
-		/>
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.9" />
 	</ItemGroup>
 	<ItemGroup>
 		<AdditionalFiles Include="Views\MainPage.xaml" />
@@ -135,5 +140,8 @@
 			<Generator>ResXFileCodeGenerator</Generator>
 			<LastGenOutput>Resources1.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\MauiAPP1.Data\MauiAPP1.Data.csproj" />
 	</ItemGroup>
 </Project>
