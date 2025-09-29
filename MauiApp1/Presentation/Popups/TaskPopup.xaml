@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentView
+	xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="MauiApp1.Presentation.Popups.TaskPopup"
+	xmlns:viewModels1="clr-namespace:MauiApp1.Presentation.ViewModels"
+	xmlns:controls="clr-namespace:MauiApp1.Presentation.Controls"
+	x:DataType="viewModels1:TaskPopupViewModel"
+	HorizontalOptions="Fill"
+	VerticalOptions="Center"
+>
+	<VerticalStackLayout HorizontalOptions="Fill">
+		<Label
+			HorizontalOptions="Fill"
+			Text="Edit task"
+			FontAttributes="Bold"
+			FontSize="18"
+			TextColor="Black"
+		/>
+		<Grid
+			HorizontalOptions="Fill"
+			ColumnDefinitions="Auto,*"
+			RowDefinitions="Auto,Auto,Auto"
+			ColumnSpacing="8"
+			RowSpacing="8"
+		>
+			<Label
+				TextColor="Black"
+				Grid.Row="0"
+				Grid.Column="0"
+				Text="Name"
+				VerticalTextAlignment="Center"
+			/>
+			<Entry
+				TextColor="Black"
+				Grid.Row="0"
+				Grid.Column="1"
+				Text="{Binding NameInput}"
+				Placeholder="Enter name"
+			/>
+			<Label
+				TextColor="Black"
+				Grid.Row="1"
+				Grid.Column="0"
+				Text="Description"
+				VerticalTextAlignment="Center"
+			/>
+			<Editor
+				TextColor="Black"
+				Grid.Row="1"
+				Grid.Column="1"
+				Text="{Binding DescriptionInput}"
+			/>
+			<Label
+				TextColor="Black"
+				Grid.Row="2"
+				Grid.Column="0"
+				Text="Due date"
+				VerticalTextAlignment="Center"
+			/>
+			<!-- <Entry TextColor="Black" Grid.Row="2" Grid.Column="1" -->
+			<!--        Text="{Binding DueDateInput}" -->
+			<!--        Placeholder="YYYY-MM-DD HH:mm" /> -->
+			<controls:CustomEntry
+				TextColor="Black"
+				Grid.Row="2"
+				Grid.Column="1"
+				Text="{Binding DueDateInput}"
+				Placeholder="YYYY-MM-DD HH:mm"
+			/>
+		</Grid>
+		<HorizontalStackLayout Spacing="12" HorizontalOptions="End">
+			<Button Text="Cancel" Command="{Binding CancelCommand}" />
+			<Button Text="Save" Command="{Binding SaveCommand}" />
+		</HorizontalStackLayout>
+	</VerticalStackLayout>
+</ContentView>

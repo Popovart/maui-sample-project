@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiApp1", "MauiApp1\MauiApp1.csproj", "{F8CDBB98-2A65-4066-9CBC-3C3412D6D4E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiAPP1.Data", "MauiAPP1.Data\MauiAPP1.Data.csproj", "{97C1C18F-5B87-4750-8214-59206EACC15E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiAPP1.Infrastructure", "MauiAPP1.Infrastructure\MauiAPP1.Infrastructure.csproj", "{97C1C18F-5B87-4750-8214-59206EACC15E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

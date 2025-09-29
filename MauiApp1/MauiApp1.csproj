@@ -113,9 +113,6 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.9" />
 	</ItemGroup>
 	<ItemGroup>
-		<AdditionalFiles Include="Views\MainPage.xaml" />
-	</ItemGroup>
-	<ItemGroup>
 		<MauiXaml Update="View\MainPage.xaml">
 			<SubType>Designer</SubType>
 		</MauiXaml>
@@ -132,8 +129,8 @@
 		</Compile>
 	</ItemGroup>
 	<ItemGroup>
-		<Folder Include="Mapping\" />
-		<Folder Include="Views\Templates\" />
+		<Folder Include="Domain\" />
+		<Folder Include="Presentation\" />
 	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Update="Resources\Strings\Resources1.resx">
@@ -142,6 +139,11 @@
 		</EmbeddedResource>
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\MauiAPP1.Data\MauiAPP1.Data.csproj" />
+	  <ProjectReference Include="..\MauiAPP1.Infrastructure\MauiAPP1.Infrastructure.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <AdditionalFiles Include="Presentation\Popups\ComplexTaskPopup.xaml" />
+	  <AdditionalFiles Include="Presentation\Popups\TaskPopup.xaml" />
+	  <AdditionalFiles Include="Presentation\Views\DetailPage.xaml" />
 	</ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-﻿using MauiApp1.Views;
+﻿using MauiApp1.Presentation.Views;
 using Microsoft.Maui.Controls;
 
 namespace MauiApp1;

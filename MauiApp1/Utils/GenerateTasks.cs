@@ -1,4 +1,4 @@
-using MauiApp1.Models;
+using MauiApp1.Domain.Models;
 
 namespace MauiApp1.Utils;
 

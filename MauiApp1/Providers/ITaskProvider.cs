@@ -1,5 +1,4 @@
-using MauiAPP1.Data.Entities;
-using MauiApp1.Models;
+using MauiAPP1.Infrastructure.Entities;
 
 namespace MauiApp1.Providers;
 

@@ -1,18 +1,19 @@
 ﻿using Android.Renderscripts;
 using CommunityToolkit.Maui;
-using MauiAPP1.Data.Local;
-using MauiApp1.Popups;
+using MauiApp1.Domain.Services;
+using MauiAPP1.Infrastructure.Local;
+using MauiApp1.Presentation.Popups;
+using MauiApp1.Presentation.Views;
 using MauiApp1.Providers;
-using MauiApp1.Services;
-using MauiApp1.ViewModels;
-using MauiApp1.Views;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Hosting;
-using MainViewModel = MauiApp1.ViewModels.MainViewModel;
+using DetailViewModel = MauiApp1.Presentation.ViewModels.DetailViewModel;
+using MainViewModel = MauiApp1.Presentation.ViewModels.MainViewModel;
+using TaskPopupViewModel = MauiApp1.Presentation.ViewModels.TaskPopupViewModel;
 
 namespace MauiApp1;
 

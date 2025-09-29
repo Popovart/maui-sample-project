@@ -1,7 +1,5 @@
-using MauiAPP1.Data.Entities;
-using MauiAPP1.Data.Local;
-using MauiApp1.Models;
-using MauiApp1.Utils;
+using MauiAPP1.Infrastructure.Entities;
+using MauiAPP1.Infrastructure.Local;
 using Microsoft.EntityFrameworkCore;
 
 namespace MauiApp1.Providers;
