@@ -6,7 +6,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiApp1.Domain.Models;
 using MauiApp1.Domain.Services;
+using MauiApp1.Domain.Services.NavigationService;
 using MauiApp1.Presentation.Popups;
+using MauiApp1.Presentation.ViewModels.Base;
 using MauiApp1.Presentation.Views;
 using Microsoft.Maui.Controls.Shapes;
 
@@ -14,24 +16,40 @@ namespace MauiApp1.Presentation.ViewModels;
 
 public partial class MainViewModel(
 	IPopupService popupService,
-	ITaskService taskService
-) : ObservableObject
+	ITaskService taskService,
+	INavigationService navigationService
+) : BaseViewModel(navigationService)
 {
-	[ObservableProperty]
-	ObservableCollection<TaskModel> items = new();
-
-	[ObservableProperty]
-	string taskName;
+	private bool _isInitialized;
 	
-	[RelayCommand]
-	async Task Refresh()
+	[ObservableProperty]
+	ObservableCollection<TaskModel> _tasksList = new();
+
+	[ObservableProperty] private string _taskName = String.Empty;
+	
+	// async Task RefreshAsync()
+	// {
+	// 	var list = await taskService.GetTasksAsync();
+	// 	TasksList.Clear();
+	// 	TasksList = list.ToObservableCollection();
+	// }
+	
+	public override async Task InitializeAsync()
 	{
-		var list = await taskService.GetTasksAsync();
-		Items.Clear();
-		Items = list.ToObservableCollection();
+		if (_isInitialized)
+		{
+			return;
+		}
+
+		_isInitialized = true;
+		await IsBusyFor(
+			async () =>
+			{
+				TasksList = await InitTaskList();
+			});
 	}
 
-	async Task<ObservableCollection<TaskModel>> InitItems()
+	async Task<ObservableCollection<TaskModel>> InitTaskList()
 	{
 		return (await taskService.GetTasksAsync()).ToObservableCollection();
 	}
@@ -47,19 +65,23 @@ public partial class MainViewModel(
 			null,
 			DateTime.UtcNow.ToString("u")
 		);
-
-		var response = await taskService.CreateTaskAsync(newTask);
-		Items.Add(response);
-		TaskName = string.Empty;
+		
+		await IsBusyFor(
+			async () =>
+			{
+				var response = await taskService.CreateTaskAsync(newTask);
+				TasksList.Add(response);
+				TaskName = string.Empty;
+			});
 	}
 
 	[RelayCommand]
 	async Task Delete(TaskModel task)
 	{
 		await taskService.DeleteTaskByIdAsync(task.Id);
-		if (Items.Contains(task))
+		if (TasksList.Contains(task))
 		{
-			Items.Remove(task);
+			TasksList.Remove(task);
 		}
 	}
 
@@ -152,13 +174,13 @@ public partial class MainViewModel(
 			if (response == null)
 				throw new Exception("something got wrong, while updating");
 
-			var found = Enumerable.FirstOrDefault<TaskModel>(Items, t => t.Id == updated.Id);
+			var found = Enumerable.FirstOrDefault<TaskModel>(TasksList, t => t.Id == updated.Id);
 			if (found is null)
 				return;
 
-			var ix = Items.IndexOf(found);
+			var ix = TasksList.IndexOf(found);
 			if (ix >= 0)
-				Items[ix] = response;
+				TasksList[ix] = response;
 			await Tap(response);
 		}
 	}

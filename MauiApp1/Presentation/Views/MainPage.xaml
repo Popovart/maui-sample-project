@@ -1,97 +1,118 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ContentPage
+<views:BaseContentPage
 	xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	x:Class="MauiApp1.Presentation.Views.MainPage"
 	xmlns:strings="clr-namespace:MauiApp1.Resources.Strings"
 	xmlns:models1="clr-namespace:MauiApp1.Domain.Models"
 	xmlns:viewModels1="clr-namespace:MauiApp1.Presentation.ViewModels"
+	xmlns:views="clr-namespace:MauiApp1.Presentation.Views"
 	x:DataType="viewModels1:MainViewModel"
 >
-	<VerticalStackLayout>
-		<!-- <Button Text="Open TaskPopup" Command="{Binding DisplayPopupCommand}"/>  -->
-		<Grid
-			RowDefinitions="100, Auto, *"
-			ColumnDefinitions=".75*, .25*"
-			Padding="10"
-			RowSpacing="10"
-			ColumnSpacing="10"
+	<Grid
+		RowDefinitions="100, Auto, *"
+		ColumnDefinitions=".75*, .25*"
+		Padding="10"
+		RowSpacing="10"
+		ColumnSpacing="10"
+	>
+		<Image
+			Grid.ColumnSpan="2"
+			Source="dotnet_bot.png"
+			BackgroundColor="Aqua"
+		/>
+		<Entry
+			Placeholder="Enter TaskModel"
+			Text="{Binding TaskName}"
+			Grid.Row="1"
+		/>
+		<Button
+			Command="{Binding AddCommand}"
+			Text="{x:Static strings:Resources1.AddButtonText}"
+			Grid.Row="1"
+			Grid.Column="1"
+		/>
+		<CollectionView
+			Grid.Row="2"
+			Grid.ColumnSpan="2"
+			ItemsSource="{Binding TasksList}"
+			SelectionMode="None"
 		>
-			<Image
-				Grid.ColumnSpan="2"
-				Source="dotnet_bot.png"
-				BackgroundColor="Aqua"
-			/>
-			<Entry
-				Placeholder="Enter TaskModel"
-				Text="{Binding TaskName}"
-				Grid.Row="1"
-			/>
-			<Button
-				Command="{Binding AddCommand}"
-				Text="{x:Static strings:Resources1.AddButtonText}"
-				Grid.Row="1"
-				Grid.Column="1"
-			/>
-			<CollectionView
-				Grid.Row="2"
-				Grid.ColumnSpan="2"
-				ItemsSource="{Binding Items}"
-				SelectionMode="None"
-			>
-				<CollectionView.ItemTemplate>
-					<DataTemplate x:DataType="{x:Type models1:TaskModel}">
-						<SwipeView>
-							<SwipeView.RightItems>
-								<SwipeItems>
-									<SwipeItem
+			<CollectionView.ItemTemplate>
+				<DataTemplate x:DataType="{x:Type models1:TaskModel}">
+					<SwipeView>
+						<SwipeView.RightItems>
+							<SwipeItems>
+								<SwipeItem
+									Command="{
+                                        Binding Source={RelativeSource AncestorType={x:Type viewModels1:MainViewModel}},
+                                        Path=DeleteCommand
+                                    }"
+									CommandParameter="{Binding .}"
+									Text="Delete"
+									BackgroundColor="Crimson"
+								></SwipeItem>
+							</SwipeItems>
+						</SwipeView.RightItems>
+						<Grid Padding="0,5">
+							<Border
+								Padding="10, 5"
+								BackgroundColor="Chocolate"
+							>
+								<Border.GestureRecognizers>
+									<TapGestureRecognizer
 										Command="{
                                             Binding Source={RelativeSource AncestorType={x:Type viewModels1:MainViewModel}},
-                                            Path=DeleteCommand
+                                            Path=DisplayComplexPopupCommand
                                         }"
 										CommandParameter="{Binding .}"
-										Text="Delete"
-										BackgroundColor="Crimson"
-									></SwipeItem>
-								</SwipeItems>
-							</SwipeView.RightItems>
-							<Grid Padding="0,5">
-								<Border
-									Padding="10, 5"
-									BackgroundColor="Chocolate"
+									/>
+								</Border.GestureRecognizers>
+								<FlexLayout
+									Direction="Row"
+									JustifyContent="SpaceBetween"
+									AlignItems="Center"
+									Padding="12"
 								>
-									<Border.GestureRecognizers>
-										<TapGestureRecognizer
-											Command="{
-                                                Binding Source={RelativeSource AncestorType={x:Type viewModels1:MainViewModel}},
-                                                Path=DisplayComplexPopupCommand
-                                            }"
-											CommandParameter="{Binding .}"
-										/>
-									</Border.GestureRecognizers>
-									<FlexLayout
-										Direction="Row"
-										JustifyContent="SpaceBetween"
-										AlignItems="Center"
-										Padding="12"
-									>
-										<Label
-											Text="{Binding .Name}"
-											VerticalTextAlignment="Center"
-										/>
-										<Image
-											Source="beer.png"
-											WidthRequest="24"
-											HeightRequest="24"
-											Aspect="AspectFit"
-										/>
-									</FlexLayout>
-								</Border>
-							</Grid>
-						</SwipeView>
-					</DataTemplate>
-				</CollectionView.ItemTemplate>
-			</CollectionView>
-		</Grid>
-	</VerticalStackLayout>
-</ContentPage>
+									<Label
+										Text="{Binding .Name}"
+										VerticalTextAlignment="Center"
+									/>
+									<Image
+										Source="beer.png"
+										WidthRequest="24"
+										HeightRequest="24"
+										Aspect="AspectFit"
+									/>
+								</FlexLayout>
+							</Border>
+						</Grid>
+					</SwipeView>
+				</DataTemplate>
+			</CollectionView.ItemTemplate>
+		</CollectionView>
+		
+		<!--  DIM OVERLAY WHEN BUSY  -->
+		<BoxView
+			Grid.Row="0"
+			Grid.Column="0"
+			Grid.RowSpan="3"
+			Grid.ColumnSpan="2"
+			BackgroundColor="Black"
+			Opacity="0.35"
+			IsVisible="{Binding IsBusy}" />
+		
+		<!--  INDICATOR  -->
+        <ActivityIndicator
+            Grid.Row="1"
+			Grid.ColumnSpan="2"
+            HorizontalOptions="Center"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="Center"
+            Color="{StaticResource White}" />
+		
+		
+	</Grid>
+	
+</views:BaseContentPage>

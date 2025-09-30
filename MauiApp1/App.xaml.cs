@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using MauiApp1.Domain.Services.NavigationService;
 using MauiAPP1.Infrastructure.Local;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Maui;
@@ -8,8 +9,10 @@ namespace MauiApp1;
 
 public partial class App : Application
 {
-	public App(LocalDbContext dbContext)
+	private readonly INavigationService _navigationService;
+	public App(INavigationService navigationService)
 	{
+		_navigationService = navigationService;
 		InitializeComponent();
 		//ru-RU
 		// cs-CZ
@@ -20,6 +23,6 @@ public partial class App : Application
 		IActivationState? activationState
 	)
 	{
-		return new Window(new AppShell());
+		return new Window(new AppShell(_navigationService));
 	}
 }

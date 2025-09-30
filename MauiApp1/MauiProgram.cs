@@ -1,6 +1,7 @@
 ﻿using Android.Renderscripts;
 using CommunityToolkit.Maui;
 using MauiApp1.Domain.Services;
+using MauiApp1.Domain.Services.NavigationService;
 using MauiAPP1.Infrastructure.Local;
 using MauiApp1.Presentation.Popups;
 using MauiApp1.Presentation.Views;
@@ -53,6 +54,8 @@ public static class MauiProgram
 
 		builder.Services.AddTransient<DetailPage>();
 		builder.Services.AddTransient<DetailViewModel>();
+
+		builder.Services.AddSingleton<INavigationService, MauiNavigationService>();
 
 		builder.Services.AddDbContext<LocalDbContext>(
 			options =>
